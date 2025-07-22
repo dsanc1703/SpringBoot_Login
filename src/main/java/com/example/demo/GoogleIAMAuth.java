@@ -1,19 +1,23 @@
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ConnectorIamAuthnConnectionPoolFactory extends ConnectionPoolFactory {
 
   // Note: Saving credentials in environment variables is convenient, but not
   // secure - consider a more secure solution such as
   // Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
   // keep secrets safe.
-  private static final String INSTANCE_CONNECTION_NAME =
-      System.getenv("INSTANCE_CONNECTION_NAME");
-  private static final String DB_IAM_USER = System.getenv("DB_IAM_USER");
-  private static final String DB_NAME = System.getenv("DB_NAME");
+  private static final String INSTANCE_CONNECTION_NAME = "loyal-bit-466613-v3:us-central1:weather";
+  private static final String DB_IAM_USER = "sockpuppet.307@gmail.com";
+  private static final String DB_NAME = "postgres";
 
-  public static DataSource createConnectionPool() {
+
+  @Bean
+  public DataSource createConnectionPool() {
     // The configuration object specifies behaviors for the connection pool.
     HikariConfig config = new HikariConfig();
 
